@@ -1,71 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React from 'react';
 
-export default function App() {
-  const [score, setScore] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(10);
-  const [frogPosition, setFrogPosition] = useState({ top: "50%", left: "50%" });
-  const [isPlaying, setIsPlaying] = useState(true);
-
-  // Taymer
-  useEffect(() => {
-    if (timeLeft > 0 && isPlaying) {
-      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearTimeout(timer);
-    } else {
-      setIsPlaying(false);
-    }
-  }, [timeLeft, isPlaying]);
-
-  // Qurbaqa bosilganda
-  const handleClickFrog = () => {
-    if (!isPlaying) return;
-    setScore(score + 1);
-    moveFrog();
-  };
-
-  // Qurbaqani random joyga ko‘chirish
-  const moveFrog = () => {
-    const randomTop = Math.floor(Math.random() * 80) + 10; // 10% - 90%
-    const randomLeft = Math.floor(Math.random() * 80) + 10;
-    setFrogPosition({ top: `${randomTop}%`, left: `${randomLeft}%` });
-  };
-
+const ProductList = () => {
   return (
-    <div className="w-screen h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 to-blue-500 relative overflow-hidden">
-      <div className="absolute top-10 right-10 text-white text-xl text-center">
-        <p>Ball: {score}</p>
-        <p>Vaqt: {timeLeft}s</p>
+    <div className="p-5 font-sans">
+      <h2 className="text-2xl font-bold mb-4">С нами удобнее</h2>
+      <div className="mb-4">
+        <button className="px-4 py-2 mr-2 bg-gray-200 rounded hover:bg-gray-300">Без 1С-Товары</button>
+        <button className="px-4 py-2 bg-green-100 rounded hover:bg-green-200">Вместе с 1С-Товары</button>
       </div>
 
-      {isPlaying ? (
-        <button
-          onClick={handleClickFrog}
-          className="absolute text-4xl cursor-pointer select-none"
-          style={{
-            top: frogPosition.top,
-            left: frogPosition.left,
-            transform: "translate(-50%, -50%)"
-          }}
-        >
-          🐸
-        </button>
-      ) : (
-        <div className="text-center text-white text-3xl">
-          <p>O‘yin tugadi!</p>
-          <p>Yakuniy ball: {score}</p>
-          <button
-            onClick={() => {
-              setScore(0);
-              setTimeLeft(10);
-              setIsPlaying(true);
-              moveFrog();
-            }}
-            className="mt-4 bg-white text-black px-4 py-2 rounded-lg"
-          >
-            Qayta boshlash
-          </button>
+      <div className="flex justify-between">
+        <div className="w-5/12 bg-gray-50 p-4 rounded">
+          <h3 className="text-lg font-semibold mb-2">Без 1С-Товары</h3>
+          <ul className="list-none p-0">
+            <li className="mb-2"><input type="checkbox" /> Лишний товар складируется и не продается</li>
+            <li className="mb-2"><input type="checkbox" /> Постоянно приходится думать какой продукт будет актуален, а какой стоит выводить из ассортимента</li>
+            <li className="mb-2"><input type="checkbox" /> Лишний товар складируется и не продается</li>
+            <li className="mb-2"><input type="checkbox" /> Постоянно приходится думать какой продукт будет актуален, а какой стоит выводить из ассортимента</li>
+            <li className="mb-2"><input type="checkbox" /> Лишний товар складируется и не продается</li>
+          </ul>
         </div>
-      )}
+
+        <div className="w-5/12 bg-green-50 p-4 rounded">
+          <h3 className="text-lg font-semibold mb-2">Вместе с 1С-Товары</h3>
+          <ul className="list-none p-0">
+            <li className="mb-2"><input type="checkbox" checked /> Организованная система остатков</li>
+            <li className="mb-2"><input type="checkbox" checked /> В магазине есть определенная ассортиментная матрица, поддерживающая актуальный ассортимент</li>
+            <li className="mb-2"><input type="checkbox" checked /> Распределенный прогноз спроса</li>
+            <li className="mb-2"><input type="checkbox" checked /> В магазине есть определенная ассортиментная матрица, поддерживающая актуальный ассортимент</li>
+            <li className="mb-2"><input type="checkbox" checked /> Система контроля пущенных продаж</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <button className="px-4 py-2 mr-2 bg-green-500 text-white rounded hover:bg-green-600">Популярные продукты</button>
+        <button className="px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-600">Все продукты</button>
+      </div>
     </div>
   );
-}
+};
+
+export default ProductList;
